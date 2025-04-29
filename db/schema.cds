@@ -1,17 +1,21 @@
+namespace capmdev1;
+
 using {
     managed,
     Country
 } from '@sap/cds/common';
 
-entity siteinformation : managed {
+entity Siteinformation : managed {
     key ID      : UUID;
         store   : String(4);
         country : Country;
-        persons : Composition of many siteperson
-                      on persons.employeeid = $self;
+        persons : Composition of many Siteperson
+                      on persons.store = $self;
 }
 
-entity siteperson {
+entity Siteperson {
     key ID         : UUID;
-        employeeid : Association to siteinformation;
+    key store : Association to Siteinformation;
+    key employeeid : String(8);
+        employeename : String(20);
 }
